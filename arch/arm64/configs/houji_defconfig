@@ -2904,21 +2904,26 @@ CONFIG_RANDOM_TRUST_CPU=y
 CONFIG_RANDOM_TRUST_BOOTLOADER=y
 # end of Character devices
 
-CONFIG_RANDOM_DEFAULT_IMPL=y
+#
+# Linux Random Number Generator
+#
+
+# CONFIG_RANDOM_DEFAULT_IMPL is not set
 CONFIG_LRNG=y
 
 #
-# Linux Random Number Generator Configuration
+# LRNG Core
 #
 CONFIG_LRNG_SHA256=y
+CONFIG_LRNG_RANDOM_IF=y
 CONFIG_LRNG_COMMON_DEV_IF=y
 CONFIG_LRNG_DRNG_ATOMIC=y
+CONFIG_LRNG_SYSCTL=y
 
 #
 # Specific DRNG seeding strategies
 #
 # CONFIG_LRNG_AIS2031_NTG1_SEEDING_STRATEGY is not set
-# end of Specific DRNG seeding strategies
 
 #
 # LRNG Interfaces
@@ -2926,7 +2931,6 @@ CONFIG_LRNG_DRNG_ATOMIC=y
 # CONFIG_LRNG_KCAPI_IF is not set
 CONFIG_LRNG_HWRAND_IF=y
 CONFIG_LRNG_DEV_IF=y
-# end of LRNG Interfaces
 
 #
 # Entropy Source Configuration
@@ -2934,16 +2938,9 @@ CONFIG_LRNG_DEV_IF=y
 # CONFIG_LRNG_RUNTIME_ES_CONFIG is not set
 
 #
-# Common Timer-based Entropy Source Configuration
-#
-CONFIG_LRNG_RCT_CUTOFF=31
-CONFIG_LRNG_RCT_CUTOFF_PERMANENT=81
-CONFIG_LRNG_APT_CUTOFF=325
-CONFIG_LRNG_APT_CUTOFF_PERMANENT=371
-
-#
 # Interrupt Entropy Source
 #
+CONFIG_LRNG_IRQ=y
 
 #
 # Jitter RNG Entropy Source
@@ -2966,16 +2963,32 @@ CONFIG_LRNG_CPU_ENTROPY_RATE=8
 # Kernel RNG Entropy Source
 #
 # CONFIG_LRNG_KERNEL_RNG is not set
-# end of Entropy Source Configuration
 
+#
+# Entropy Health Tests
+#
+CONFIG_LRNG_RCT_CUTOFF=31
+CONFIG_LRNG_RCT_CUTOFF_PERMANENT=81
+CONFIG_LRNG_APT_CUTOFF=325
+CONFIG_LRNG_APT_CUTOFF_PERMANENT=371
+
+#
+# Default DRNG
+#
 CONFIG_LRNG_DRNG_CHACHA20=y
+CONFIG_LRNG_DFLT_DRNG_CHACHA20=y
+
 # CONFIG_LRNG_SWITCH_HASH is not set
 # CONFIG_LRNG_SWITCH_DRNG is not set
-CONFIG_LRNG_DFLT_DRNG_CHACHA20=y
 # CONFIG_LRNG_DFLT_DRNG_DRBG is not set
 # CONFIG_LRNG_DFLT_DRNG_KCAPI is not set
+
+#
+# Testing
+#
 # CONFIG_LRNG_TESTING_MENU is not set
 # CONFIG_LRNG_SELFTEST is not set
+
 # end of Linux Random Number Generator Configuration
 
 #
