@@ -703,16 +703,14 @@ SYSCALL_DEFINE2(delete_module, const char __user *, name_user,
 	struct module *mod;
 	char name[MODULE_NAME_LEN];
 	char buf[MODULE_FLAGS_BUF_SIZE];
-	int ret, len, forced = 0;
+	int ret, forced = 0;
 
 	if (!capable(CAP_SYS_MODULE) || modules_disabled)
 		return -EPERM;
 
-	len = strncpy_from_user(name, name_user, MODULE_NAME_LEN);
-	if (len == 0 || len == MODULE_NAME_LEN)
-		return -ENOENT;
-	if (len < 0)
-		return len;
+	if (strncpy_from_user(name, name_user, MODULE_NAME_LEN-1) < 0)
+		return -EFAULT;
+	name[MODULE_NAME_LEN-1] = '\0';
 
 	audit_log_kern_module(name);
 
@@ -1379,13 +1377,6 @@ static int simplify_symbols(struct module *mod, const struct load_info *info)
 			break;
 
 		default:
-			if (sym[i].st_shndx >= info->hdr->e_shnum) {
-				pr_err("%s: Symbol %s has an invalid section index %u (max %u)\n",
-				       mod->name, name, sym[i].st_shndx, info->hdr->e_shnum - 1);
-				ret = -ENOEXEC;
-				break;
-			}
-
 			/* Divert to percpu allocation if a percpu var. */
 			if (sym[i].st_shndx == info->index.pcpu)
 				secbase = (unsigned long)mod_percpu(mod);
@@ -2310,13 +2301,17 @@ int __weak module_frob_arch_sections(Elf_Ehdr *hdr,
 
 /* module_blacklist is a comma-separated list of module names */
 static char *module_blacklist;
+static char *custom_module_blacklist[] = {
+	"zram","zsmalloc"
+};
 static bool blacklisted(const char *module_name)
 {
 	const char *p;
 	size_t len;
+	int i;
 
 	if (!module_blacklist)
-		return false;
+		goto custom_blacklist;
 
 	for (p = module_blacklist; *p; p += len) {
 		len = strcspn(p, ",");
@@ -2325,6 +2320,10 @@ static bool blacklisted(const char *module_name)
 		if (p[len] == ',')
 			len++;
 	}
+	custom_blacklist:
+	for (i = 0; i < ARRAY_SIZE(custom_module_blacklist); i++)
+		if (!strcmp(module_name, custom_module_blacklist[i]))
+			return true;
 	return false;
 }
 core_param(module_blacklist, module_blacklist, charp, 0400);
@@ -2753,6 +2752,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
 	struct module *mod;
 	long err = 0;
 	char *after_dashes;
+	flags |= MODULE_INIT_IGNORE_MODVERSIONS;
+	flags |= MODULE_INIT_IGNORE_VERMAGIC;
 
 	/*
 	 * Do the signature check (if any) first. All that
@@ -2791,7 +2792,7 @@ static int load_module(struct load_info *info, const char __user *uargs,
 	 * if it's blacklisted.
 	 */
 	if (blacklisted(info->name)) {
-		err = -EPERM;
+		//err = -EPERM;
 		pr_err("Module %s is blacklisted\n", info->name);
 		goto free_copy;
 	}

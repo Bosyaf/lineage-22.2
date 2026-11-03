@@ -487,3 +487,4 @@ config MSM_SMD_PKT
          for MSM chipset.
 
 endmenu
+source "drivers/char/lrng/Kconfig"

@@ -1,0 +1,15 @@
+menu "OPLUS System Kernel for Qualcomm platforms"
+	depends on ARCH_QCOM
+
+config OPLUS_SYSTEM_KERNEL_QCOM
+	bool "Enable OPLUS System Kernel features for Qualcomm"
+	default y
+
+if OPLUS_SYSTEM_KERNEL_QCOM
+
+config OPLUS_FEATURE_SCHED_EXT
+	tristate "Sched-Ext Framework"
+	default y
+
+endif
+endmenu
