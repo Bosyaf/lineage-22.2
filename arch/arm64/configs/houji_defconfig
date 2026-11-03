@@ -2904,9 +2904,9 @@ CONFIG_RANDOM_TRUST_CPU=y
 CONFIG_RANDOM_TRUST_BOOTLOADER=y
 # end of Character devices
 
-# CONFIG_RANDOM_DEFAULT_IMPL is not set
+CONFIG_RANDOM_DEFAULT_IMPL=y
 CONFIG_LRNG=y
-CONFIG_LRNG_RANDOM_IF=y
+
 #
 # Linux Random Number Generator Configuration
 #
@@ -2944,7 +2944,6 @@ CONFIG_LRNG_APT_CUTOFF_PERMANENT=371
 #
 # Interrupt Entropy Source
 #
-# CONFIG_LRNG_IRQ is not set
 
 #
 # Jitter RNG Entropy Source
