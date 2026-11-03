@@ -2906,7 +2906,7 @@ CONFIG_RANDOM_TRUST_BOOTLOADER=y
 
 # CONFIG_RANDOM_DEFAULT_IMPL is not set
 CONFIG_LRNG=y
-
+CONFIG_LRNG_RANDOM_IF=y
 #
 # Linux Random Number Generator Configuration
 #
