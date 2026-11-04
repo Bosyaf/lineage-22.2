@@ -7565,6 +7565,7 @@ CONFIG_ARCH_USE_MEMTEST=y
 # end of Kernel Testing and Coverage
 
 CONFIG_OPLUS_CPU_FREQ_GOV_UAG=y
+CONFIG_OPLUS_UAG_USE_TL=y
 #
 # Rust hacking
 #
