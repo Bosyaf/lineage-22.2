@@ -21,7 +21,7 @@
 #include <linux/version.h>
 #include <linux/freezer.h>
 #include <linux/workqueue.h>
-#include <linux/cpufreq_bouncing.h>
+#include "cpufreq_bouncing.h"
 
 #define NSEC_TO_MSEC(val) (val / NSEC_PER_MSEC)
 #define MSEC_TO_NSEC(val) (val * NSEC_PER_MSEC)
