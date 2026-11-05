@@ -37,3 +37,5 @@ source "$(KCONFIG_EXT_PREFIX)Kconfig.ext"
 source "kernel/sched/walt/Kconfig"
 
 source "kernel/sched/uad/Kconfig"
+
+source "kernel/sched/cpufreq_bouncing/Kconfig"
