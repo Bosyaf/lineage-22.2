@@ -35,7 +35,7 @@
 #endif
 
 #if IS_ENABLED(CONFIG_OPLUS_OMRG)
-#include <linux/oplus_omrg.h>
+#include "../omrg/oplus_omrg.h"
 #endif
 
 #if IS_ENABLED(CONFIG_OPLUS_FEATURE_OCH)
