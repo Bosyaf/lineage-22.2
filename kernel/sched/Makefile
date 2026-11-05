@@ -35,4 +35,5 @@ obj-y += build_utility.o
 obj-$(CONFIG_SCHED_WALT) += walt/
 obj-$(CONFIG_OPLUS_CPU_FREQ_GOV_UAG) += uad/
 obj-$(CONFIG_OPLUS_FEATURE_GKI_CPUFREQ_BOUNCING) += cpufreq_bouncing/
+obj-$(CONFIG_OPLUS_OMRG) += omrg/
 obj-$(CONFIG_ANDROID_VENDOR_HOOKS) += vendor_hooks.o
