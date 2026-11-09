@@ -38,6 +38,6 @@ source "kernel/sched/walt/Kconfig"
 
 source "kernel/sched/uad/Kconfig"
 
-source "kernel/sched/cpufreq_bouncing/Kconfig"
+source "kernel/sched/oplus_game/Kconfig"
 
 source "kernel/sched/omrg/Kconfig"
