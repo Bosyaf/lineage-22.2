@@ -1,0 +1,14 @@
+config OPLUS_FEATURE_GAME_ENABLE
+	bool "Enable OPLUS game features"
+	default n
+	help
+	  Enables OPLUS game performance support.
+
+config OPLUS_FEATURE_CPU_GAME
+	bool "OPLUS CPU game early-detect support"
+	depends on CPU_FREQ && PROC_FS && TRACEPOINTS
+	select PM
+	default n
+	help
+	  Built-in OPLUS game early-detect and CPU frequency QoS support.
+	  The feature remains disabled at runtime until userspace enables it.
